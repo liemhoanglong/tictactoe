@@ -15,32 +15,51 @@ class Board extends React.Component {
   	//create prop value
     return (
       <Square
+        key={"square " + i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
     );
   }
 
-  render() {
+  renderRow(row){
+    const sq = [];
+    const index = row * 3;
+    for(let s = 0; s < 3 ; s++){
+      sq.push(this.renderSquare(index + s));
+    };
     return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+      <div key = {"row " + row + 1} className="board-row">
+        {sq}
       </div>
-    );
+    )
+  }
+
+  render() {
+    const row = [];
+    for (let i=0; i<3; i++){
+      row.push(this.renderRow(i))
+    }
+    return <div>{row}</div>
+    // return (
+    //   <div>
+    //     <div className="board-row">
+    //       {this.renderSquare(0)}
+    //       {this.renderSquare(1)}
+    //       {this.renderSquare(2)}
+    //     </div>
+    //     <div className="board-row">
+    //       {this.renderSquare(3)}
+    //       {this.renderSquare(4)}
+    //       {this.renderSquare(5)}
+    //     </div>
+    //     <div className="board-row">
+    //       {this.renderSquare(6)}
+    //       {this.renderSquare(7)}
+    //       {this.renderSquare(8)}
+    //     </div>
+    //   </div>
+    // );
   }
 }
 
@@ -69,8 +88,13 @@ class Game extends React.Component {
         squares: squares,
       }]),
       stepNumber: history.length,
-      xIsNext: !this.state.xIsNext
+      xIsNext: !this.state.xIsNext,
+      isDes: true
     });
+  }
+
+  sortHistory(){
+    this.setState({isDes: !this.state.isDes})
   }
 
   jumpTo(step){
@@ -80,18 +104,26 @@ class Game extends React.Component {
     })
   }
 
+  loca(move) {
+    let r = (move)/3
+    let c = (move)%3  
+    return ': row ' +  (Math.ceil(r) === 0 ? 3 : Math.ceil(r))  + ' col ' + (Math.ceil(c) === 0 ? 3 : Math.ceil(c))         
+  }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-    
+
     const moves = history.map((step, move) => {
       const desc = move ?
-        'Go to move #' + move :
+        'Go to move #' + move + this.loca(move) :
         'Go to game start';
       return(
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button onClick={() => this.jumpTo(move)}>
+            {move === this.state.stepNumber ? <b>{desc}</b> : desc}
+          </button>
         </li>  
       );
     });
@@ -112,7 +144,10 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <ol>{this.state.isDes ? moves : moves.reverse()}</ol>
+          <button onClick={() => this.sortHistory()}>
+            Sort by: {this.state.isDes ? "Descending" : "Asending"}
+          </button>
         </div>
       </div>
     );

@@ -19,17 +19,18 @@ ol, ul {
 
 .square {
   background: #fff;
-  border: 1px solid #999;
+  border: 2px solid #000;
   float: left;
-  font-size: 24px;
+  font-size: 50px;
   font-weight: bold;
   line-height: 34px;
-  height: 34px;
+  height: 70px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 70px;
+  color: #f4511e;
 }
 
 .square:focus {
@@ -43,8 +44,15 @@ ol, ul {
 .game {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.game-board{
+  margin-top: 25px;
 }
 
 .game-info {
   margin-left: 20px;
+
 }
