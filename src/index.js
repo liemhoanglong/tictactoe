@@ -56,7 +56,7 @@ class Game extends React.Component {
         squares: Array(9).fill(null),
       }],
       stepNumber: 0,
-      xIsNext: true
+      xIsNext: true,
     };
   }
 
@@ -71,10 +71,11 @@ class Game extends React.Component {
     this.setState({
       history: history.concat([{
         squares: squares,
+        location: i+1
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
-      isDes: true
+      isDes: true,
     });
   }
 
@@ -100,8 +101,9 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
     const moves = history.map((step, move) => {
+      console.log(history[move].location)
       const desc = move ?
-        'Go to move #' + move + this.loca(move) :
+        'Go to move #' + move + this.loca(history[move].location) :
         'Go to game start';
       return(
         <li key={move}>
@@ -116,7 +118,7 @@ class Game extends React.Component {
     if (winner) {
       status = 'Winner: ' + winner.player;
     } else if (!current.squares.includes(null)) {
-      status = "draw"; 
+      status = "Draw"; 
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O'); 
     }
@@ -134,11 +136,11 @@ class Game extends React.Component {
           <div className="game-status">{status}</div>
           <ol>{this.state.isDes ? moves : moves.reverse()}</ol>
           <div>
-            Sort by: {this.state.isDes ? "Descending" : "Asending"}
+            Sort by: {this.state.isDes ? "Asending" : "Descending"}
           </div>
-          <label class="switch">
+          <label className="switch">
             <input type="checkbox" onClick={() => this.sortHistory()}/>
-            <span class="slider round"></span>
+            <span className="slider round"></span>
           </label>
         </div>
       </div>
