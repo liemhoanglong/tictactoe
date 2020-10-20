@@ -3,46 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Board from './components/board'
 
-// const Square = (props) => {
-// 	return (
-// 		<button 
-// 		className={"square " + (props.isWin ? "square-win" : null)} 
-// 		onClick={props.onClick}
-// 		>
-// 		{props.value}
-// 		</button>
-// 	);
-// }
-
-// const size = 3
-// const Board = ({winningSquares, squares, onClick}) => {
-// 	const renderSquare = (i, winningSquares, squares, onClick) => {
-// 		return (
-// 			<Square
-// 			isWin = {winningSquares.includes(i)}
-// 			key={"square " + i}
-// 			value={squares[i]}
-// 			onClick={() => onClick(i)}
-// 			/>
-// 			);
-// 	}
-// 	const row = []
-// 	let index = 0
-// 	for (let i=0; i < size; i++){
-// 		const sq = []
-// 		for(let j = 0; j < size ; j++){
-//   		sq.push(renderSquare(index, winningSquares, squares, onClick));
-//   		index ++
-//   	};
-// 	  row.push(
-// 	  	<div key = {"row " + row + 1} className="board-row">
-//   		{sq}
-//   		</div>
-//   	)
-// 	}
-// 	return <div>{row}</div>
-// }
-
 const size = 3
 
 const Game = () => {
