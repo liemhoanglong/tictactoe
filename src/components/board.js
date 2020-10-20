@@ -1,9 +1,9 @@
 import React from 'react'
 import Square from './square'
 
-const size = 3
-const Board = ({winningSquares, squares, onClick}) => {
-	const renderSquare = (i, winningSquares, squares, onClick) => {
+// const size = 3
+const Board = ({winningSquares, squares, onClick, size}) => {
+	const renderSquare = (i, winningSquares, squares, onClick, size) => {
 		return (
 			<Square
 			isWin = {winningSquares.includes(i)}
@@ -18,7 +18,7 @@ const Board = ({winningSquares, squares, onClick}) => {
 	for (let i=0; i < size; i++){
 		const sq = []
 		for(let j = 0; j < size ; j++){
-  		sq.push(renderSquare(index, winningSquares, squares, onClick));
+  		sq.push(renderSquare(index, winningSquares, squares, onClick, size));
   		index ++
   	};
 	  row.push(
